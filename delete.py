@@ -75,7 +75,7 @@ for dir, dirs, files in os.walk(folder):
 
 print('\nTOTAL: %d files (%s), %d ignored, %d system' % (tot_count,sizeof_fmt(tot_dir_size),tot_ignored_count,tot_sys_count)) #print(dir + ': ' + str(k) + ' files')
 
-if len(list) == 0:
+if count == 0:
     exit(0)
 
 print('Do you wish to proceed? (y/n)')
@@ -88,7 +88,7 @@ if answer != 'y':
 deleted_count = 0
 deleted_size = 0
 for (file_path,file_size) in list:
-    print('%d Removed. Removing: %s'%(deleted_count,file_path), end='\x1b[K\r')
+    print('%d/%d removed. Removing: %s'%(deleted_count,count,file_path), end='\x1b[K\r')
     try:
         os.remove(file_path)
     except Exception as error:
@@ -98,4 +98,4 @@ for (file_path,file_size) in list:
     deleted_count += 1
     deleted_size += file_size
 
-print('%d/%d file deleted. %s freed' % (deleted_count,len(list),sizeof_fmt(deleted_size)) ,end='\x1b[K\n')
+print('%d/%d file deleted. %s freed' % (deleted_count,count,sizeof_fmt(deleted_size)) ,end='\x1b[K\n')
