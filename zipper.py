@@ -97,11 +97,21 @@ for (file_path,file_sz) in list:
     result_size[cur_zip_name] += file_sz
 
 
-print(result)
-print(result_size)
+i = 1
 for (key,list) in result.items():
-    print('%s.zip  :  %s -> %s' % (key,list[0],list[len(list)-1]))
+    print('%d_%s.zip  (%s):  %s -> %s' % (i,key,sizeof_fmt(result_size[key]),list[0],list[len(list)-1]))
+    i += 1
 
+
+print('\nDo you wish to proceed? (y/n)')
+answer = input().lower()
+
+if answer != 'y':
+    exit(0)
+
+i = 1
 for (key,list) in result.items():
-    print('zip %s.zip %s' % (key,' '.join(list)))
-    subprocess.run(['zip',key + '.zip'] +  list)
+    cmd = ['zip','../' + str(i) + '_' + key + '.zip'] +  list
+    print(cmd[1])
+    subprocess.run(cmd)
+    i += 1
